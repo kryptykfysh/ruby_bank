@@ -22,6 +22,22 @@ module RubyBank
         subject { @bank }
 
         it { should be_an_instance_of(Bank) }
+
+        it 'should have an empty :accounts Array on creation' do
+          @bank.accounts.should be_empty
+        end
+
+        it 'should have a :liability of 0' do
+          @bank.liability.should be_zero
+        end
+
+        it 'should have an empty Array of :assets' do
+          @bank.assets.should be_empty
+        end
+
+        it 'should have a valid :name' do
+          @bank.name.length.should_not be_zero
+        end
       end
 
       context 'with no name argument' do
@@ -58,18 +74,24 @@ module RubyBank
     end
 
     describe '#liability' do
-      # If have no idea what #liability should be returning.
-      # I'm just guessing it's a BigDecimal.
+      # :libility seems to be supposed return the total amount
+      # of money deposited with the bank, so should be a BigDecimal.
       subject { @bank.liability }
 
       it { should be_an_instance_of(BigDecimal) }
     end
 
     describe '#open_an_account' do
-      context 'with valid :name and :hut_number arguments' do
+      context 'with valid :name, :hut_number and :account_number arguments' do
         it 'should increase size of :accounts by 1' do
-          expect{ @bank.open_an_account(name: 'Test Client', hut_number: 'HUT0001') }.
+          expect{ @bank.open_an_account(name: 'Test Client', hut_number: 'HUT0001', account_number: 'ACC001') }.
             to change{@bank.accounts.size}.from(0).to(1)
+        end
+      end
+
+      context 'with a nil parameter' do
+        it 'should raise an ArgumentError' do
+          expect{ @bank.open_an_account(name: nil, hut_number: nil, account_number: nil) }.to raise_error(ArgumentError)
         end
       end
     end
