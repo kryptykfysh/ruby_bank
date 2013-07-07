@@ -1,25 +1,23 @@
-require 'bigdecimal'
+require 'active_record'
+require 'sqlite3'
 
-module RubyBank
-  class Bank
-    attr_reader :name, :assets, :accounts, :liability
+class Bank < ActiveRecord::Base
+  has_many :accounts
 
-    def initialize(name)
-      if name.length == 0
-        raise ArgumentError, 'Bank :name must be longer than zero characters.'
-      end
-      @name = name
-      @assets = []
-      @accounts = []
-      @liability = BigDecimal.new('0')
-    end
+  def open_an_account(name: nil, hut_number: nil, account_number: nil)
+    new_account = self.accounts.build(
+      name: name, 
+      hut_number: hut_number, 
+      account_number: account_number)
 
-    def open_an_account(name: nil, hut_number: nil, account_number: nil)
-      unless name.is_a?(String) && hut_number.is_a?(String) && account_number.is_a?(String)
-        raise ArgumentError, 'Must supply :name, :hut_number, and :account_number'
-      end
+    new_account.save
+  end
 
-      self.accounts << {name: name, hut_number: hut_number, account_number: account_number}
-    end
+  def assets
+    []
+  end
+
+  def liability
+    BigDecimal('0')
   end
 end
