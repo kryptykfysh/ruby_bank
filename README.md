@@ -7,7 +7,9 @@ This is my solution to rkcudjoe's Ruby Bank problem.
 Where Am I At?
 --------------
 
-I've created tests and classes for both Banks and Accounts, but not yet added any of the persistance requested, as that is addressed in Concerns, below.
+I've created tests and classes for both Banks and Accounts as ActiveRecord classes.
+
+Transactions (credits and debits) have not yet been implemented.
 
 Concerns
 --------
