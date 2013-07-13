@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 describe Account do
-  before(:each) do
+  before(:all) do
     @name = 'Test Account'
     @hut_number = 'HUT0001'
     @account_number = 'ACC0001'
-    @account = Account.new(name: @name, hut_number: @hut_number, account_number: @account_number)
+    @bank = Bank.create(name: 'Account Test')
+    @account = @bank.accounts.build(name: @name, hut_number: @hut_number, account_number: @account_number)
+    @account.save
   end
 
   describe 'methods and attributes' do
@@ -25,6 +27,12 @@ describe Account do
     # There is also no account :balance currently specced.
     # I'm adding one.
     it { should respond_to(:balance) }
+  end
+
+  describe '#bank' do
+    subject { @account.bank }
+
+    it { should be_an_instance_of(Bank) }
   end
 
   describe '#new' do
@@ -60,24 +68,22 @@ describe Account do
   describe '#name' do
     subject { @account.name }
 
-    it { should be_an_instance_of(String) }
+    it { should eql @name }
   end
 
   describe '#hut_number' do
     subject { @account.hut_number }
 
-    it { should be_an_instance_of(String) }
+    it { should eql @hut_number }
   end
 
   describe '#account_number' do
     subject { @account.account_number }
 
-    it { should be_an_instance_of(String) }
+    it { should eql @account_number }
   end
 
   describe '#balance' do
     subject { @account.balance }
-
-    it { should be_an_instance_of(BigDecimal) }
   end
 end

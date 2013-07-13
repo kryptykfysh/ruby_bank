@@ -30,8 +30,8 @@ describe Bank do
         @bank.liability.should be_zero
       end
 
-      it 'should have an empty Array of :assets' do
-        @bank.assets.should be_empty
+      it 'should have :assets of 1000.00' do
+        @bank.assets.should eql(1000.00)
       end
 
       it 'should have a valid :name' do
@@ -49,34 +49,29 @@ describe Bank do
   describe '#name' do
     subject { @bank.name }
 
-    it { should be_an_instance_of(String) }
-
     context "with 'Test Bank' as the :name" do
       it { should eql 'Test Bank' }
     end
   end
 
   describe '#assets' do
-    # If have no idea what #assets should be returning.
-    # I'm just guessing here.
     subject { @bank.assets }
-
-    it { should be_an_instance_of(Array) }
+    
+    it { should eql(1000.00) }    
   end
 
   describe '#accounts' do
-    # If have no idea what #accounts should be returning.
-    # I'm just guessing it should be an Array of Accounts.
     subject { @bank.accounts }
 
-    end
+    it { should be_empty }
+  end
 
   describe '#liability' do
     # :libility seems to be supposed return the total amount
     # of money deposited with the bank, so should be a BigDecimal.
     subject { @bank.liability }
 
-    it { should be_an_instance_of(BigDecimal) }
+    it { should eql 0.00 }
   end
 
   describe '#open_an_account' do
