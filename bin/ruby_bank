@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'ruby_bank'
+require_relative '../lib/ruby_bank'
 require 'active_record'
 require 'sqlite3'
+require 'hirb'
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
@@ -10,3 +11,44 @@ ActiveRecord::Base.establish_connection(
 )
 
 ActiveRecord::Migrator.migrate 'db/migrations'
+
+Hirb.enable
+#Hirb::Formatter.dynamic_config['ActiveRecord::Base']
+extend Hirb::Console
+
+puts 'Welcome to Ruby Bank.'
+puts 'Please enter a command or ? for help.'
+
+def display_help
+  puts 'Available commands are:'
+  puts "\t list <banks|accounts|credits|debits|transactions>"
+  puts "\t display <bank|account|credit|debit|transaction> <object id>"
+  puts "\t quit"
+end
+
+def get_class(class_string)
+  Kernel.const_get(class_string.capitalize)
+end
+
+def list(*args)
+  class_to_list = get_class(args.shift[0].to_s.sub(/s\z/, ''))
+  table class_to_list.all
+end
+
+def parse_command(command)
+  command_words = command.split
+  self.send(command_words.shift.to_sym, command_words)
+end
+
+loop do
+  print 'Enter Command:> '
+  command = gets.chomp.downcase
+  if command == '?' || command == 'help'
+    display_help
+  elsif command == 'quit'
+    puts 'Thank you for using Ruby Bank.'
+    break
+  else
+    parse_command command
+  end
+end

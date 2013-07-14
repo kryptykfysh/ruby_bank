@@ -68,7 +68,7 @@ describe Bank do
 
   describe '#liability' do
     # :libility seems to be supposed return the total amount
-    # of money deposited with the bank, so should be a BigDecimal.
+    # of money deposited with the bank.
     subject { @bank.liability }
 
     it { should eql 0.00 }
@@ -78,7 +78,7 @@ describe Bank do
     context 'with valid :name, :hut_number and :account_number arguments' do
       it 'should increase size of :accounts by 1' do
         expect{ @bank.open_an_account(name: 'Test Client', hut_number: 'HUT0001', account_number: 'ACC001') }.
-          to change{@bank.accounts.size}.from(0).to(1)
+          to change{ @bank.accounts.count }.from(0).to(1)
       end
     end
 
