@@ -5,20 +5,23 @@ require 'active_record'
 require 'sqlite3'
 require 'hirb'
 
+# Connect to the database
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
   database: 'db/default.db'
 )
 
+# Check database schema is up to date.
 ActiveRecord::Migrator.migrate 'db/migrations'
 
+# Use Hirb to format table output.
 Hirb.enable
-#Hirb::Formatter.dynamic_config['ActiveRecord::Base']
 extend Hirb::Console
 
 puts 'Welcome to Ruby Bank.'
 puts 'Please enter a command or ? for help.'
 
+# List all commands with formatting instructions.
 def display_help
   puts 'Available commands are:'
   puts "\t list <banks|accounts|credits|debits|transactions>"
@@ -26,10 +29,18 @@ def display_help
   puts "\t quit"
 end
 
+# Convert a string to a Class of that name (assuming it exists).
+#
+# @param class_string [String] the string to convert
+# @return [Class] the string converted to a Class.
 def get_class(class_string)
   Kernel.const_get(class_string.capitalize)
 end
 
+# List all records of a Class.
+#
+# @param class_to_list [String] the string corresponding to the desired Class.
+# @return [Table] the table of records for the Class.
 def list(*args)
   class_to_list = get_class(args.shift[0].to_s.sub(/s\z/, ''))
   table class_to_list.all
