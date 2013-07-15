@@ -7,15 +7,20 @@ This is my solution to rkcudjoe's Ruby Bank problem.
 Where Am I At?
 --------------
 
-I've created tests and classes for both Banks and Accounts as ActiveRecord classes.
+I've created tests and classes for both Banks and Accounts as ActiveRecord classes. The Transaction class 
+has been created and has subclasses of Credit and Debit.
 
-Transactions (credits and debits) have not yet been implemented.
+The package has been bundled as a gem, with an executable, 'ruby_bank' with a command parser. The command parser currently only responds to the commands 'list <class>', 'quit', and 'help' or '?'.
 
-Concerns
+Hirb has been added to format output of ActiveRecord collections.
+
+Test driving Yard documentation.
+
+To Be Done
 --------
 
-+ The spec says the deposit and withdraw methods should be on the Bank rather than the Account class, where I feel they belong.
++ Obviously the command parser needs to have the rest of the command suite built to allow creation of objects.
 
-+ The tables shown in the spec would make me want to create a Transaction class, or possibly separate Deposit and Withdrawal classes as each transaction should be logged, rather than just running totals.
++ The Hirb output needs to have proper views implemented.
 
-+ The method of persistance is unclear. The spec calls for records to be kept in a file, bank_manager.rb. I'd be tempted to either Marshal data and dump to a yaml file or use ActiveRecord for a database persistance layer. Why the file must be .rb (indicating something possibly executable), is unclear.
++ The command parser needs to allow a Bank/Account etc. to be selected and only display objects belonging to the selected object.

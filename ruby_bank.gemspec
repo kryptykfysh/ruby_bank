@@ -6,15 +6,15 @@ Gem::Specification.new do |s|
   s.description = File.read(File.join(File.dirname(__FILE__), 'README.md'))
   s.author = 'Kryptyk Fysh'
   s.email = 'kryptykphysh@gmail.com'
-  s.files = Dir["{bin,lib}/**/*"] + %w(LICENSE README)
+  s.files = Dir["{bin,lib}/**/*"] + %w(LICENSE README.md)
   s.homepage = "https://github.com/kryptykfysh/ruby_bank"
-  s.executables << ruby_bank
-  s.licence = 'MIT'
+  s.executables << 'ruby_bank'
+  s.license = 'MIT'
   s.test_files    = Dir["spec/**/*"]
   s.bindir = 'bin'
   s.post_install_message = 'Thanks for installing RubyBank.'
   s.required_ruby_version = '>=1.9.0'
-  s.add_dependency('active-record', '>=4.0.0')
+  s.add_dependency('activerecord', '>=4.0.0')
   s.add_dependency('sqlite3', '>=1.3.7')
   s.add_dependency('hirb','>=0.7.1')
   s.add_development_dependency 'rspec'
