@@ -71,29 +71,32 @@ href="http://www.rkcudjoe.com/the-banking-system-part-1">www.rkcudjoe.com/the-ba
 <h2 id="label-Where+Am+I+At%3F">Where Am I At?</h2>
 
 <p>I&#39;ve created tests and classes for both Banks and Accounts as
-ActiveRecord classes.</p>
+ActiveRecord classes. The Transaction class has been created and has
+subclasses of Credit and Debit.</p>
 
-<p>Transactions (credits and debits) have not yet been implemented.</p>
+<p>The package has been bundled as a gem, with an executable,
+&#39;ruby_bank&#39; with a command parser. The command parser currently
+only responds to the commands &#39;list &lt;class&gt;&#39;, &#39;quit&#39;,
+and &#39;help&#39; or &#39;?&#39;.</p>
 
-<h2 id="label-Concerns">Concerns</h2>
+<p>Hirb has been added to format output of ActiveRecord collections.</p>
+
+<p>Test driving Yard documentation.</p>
+
+<h2 id="label-To+Be+Done">To Be Done</h2>
 <ul><li>
-<p>The spec says the deposit and withdraw methods should be on the Bank rather
-than the Account class, where I feel they belong.</p>
+<p>Obviously the command parser needs to have the rest of the command suite
+built to allow creation of objects.</p>
 </li><li>
-<p>The tables shown in the spec would make me want to create a Transaction
-class, or possibly separate Deposit and Withdrawal classes as each
-transaction should be logged, rather than just running totals.</p>
+<p>The Hirb output needs to have proper views implemented.</p>
 </li><li>
-<p>The method of persistance is unclear. The spec calls for records to be kept
-in a file, bank_manager.rb. I&#39;d be tempted to either Marshal data and
-dump to a yaml file or use ActiveRecord for a database persistance layer.
-Why the file must be .rb (indicating something possibly executable), is
-unclear.</p>
+<p>The command parser needs to allow a Bank/Account etc. to be selected and
+only display objects belonging to the selected object.</p>
 </li></ul>
 </div></div>
 
     <div id="footer">
-  Generated on Mon Jul 15 18:30:29 2013 by
+  Generated on Mon Jul 15 19:16:19 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-2.0.0).
 </div>
